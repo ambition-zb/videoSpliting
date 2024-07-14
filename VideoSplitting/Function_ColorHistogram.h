@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "Scene.h"
 
 
 class CFunction_ColorHistogram
@@ -17,8 +18,9 @@ public:
 		return instance;
 	}
 	
-	void doTask(string& strFilePath);
-
+	//void doTask(string& strFilePath);
+	Mat calculateHistogram(const Mat& frame);
+	double histogramDifference(const Mat& hist1, const Mat& hist2);
 private:
 	// 私有构造函数，禁止从外部创建实例
 	CFunction_ColorHistogram() {
@@ -27,9 +29,6 @@ private:
 
 	static std::shared_ptr<CFunction_ColorHistogram> instance;
 	static std::once_flag initFlag;
-
-	Mat calculateHistogram(const Mat& frame);
-	double histogramDifference(const Mat& hist1, const Mat& hist2);
 };
 
 

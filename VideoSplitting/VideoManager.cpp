@@ -1,7 +1,7 @@
 #include "VideoManager.h"
 #include <iterator> 
 #include "Common.h"
-#include "Function_ColorHistogram.h"
+#include "VideoProcessing.h"
 
 CVideoManager::CVideoManager()
 {
@@ -23,8 +23,12 @@ void CVideoManager::vedioSplit()
 {
 	for (auto strFile : m_listVedio)
 	{
-		CFunction_ColorHistogram::getInstance()->doTask(strFile);
+		VideoProcessing::getInstance()->spliting(strFile);
 	}
+	VideoProcessing::getInstance()->randomDelete();
+	VideoProcessing::getInstance()->randomResize();
+	VideoProcessing::getInstance()->randomSpeed();
+	VideoProcessing::getInstance()->write2file();
 }
 
 double CVideoManager::frameDifference(const Mat& frame1, const Mat& frame2)

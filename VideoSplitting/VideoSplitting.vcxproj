@@ -134,13 +134,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="VideoProcessing.cpp" />
     <ClCompile Include="Function_ColorHistogram.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="VideoManager.cpp" />
     <ClCompile Include="VideoSplitting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="VideoProcessing.h" />
     <ClInclude Include="Function_ColorHistogram.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="VideoManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

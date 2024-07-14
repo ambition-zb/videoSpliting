@@ -5,7 +5,7 @@
 std::shared_ptr<CFunction_ColorHistogram> CFunction_ColorHistogram::instance = nullptr;
 std::once_flag CFunction_ColorHistogram::initFlag;
 
-
+/*
 void CFunction_ColorHistogram::doTask(string& strFilePath)
 {
 	cv::VideoCapture cap(strFilePath);
@@ -77,7 +77,7 @@ void CFunction_ColorHistogram::doTask(string& strFilePath)
 	}
 	cap.release();
 }
-
+*/
 // 计算图像的颜色直方图
 Mat CFunction_ColorHistogram::calculateHistogram(const Mat& frame) {
 	Mat hsv;
