@@ -14,6 +14,8 @@ void VideoProcessing::spliting(string strFilePath)
 		return;
 	}
 
+	cout << "split video:" << strFilePath << endl;
+
 	// 初始化变量
 	Mat prevFrame, currFrame;
 	Mat histPrev, histCurr;
@@ -59,11 +61,30 @@ void VideoProcessing::spliting(string strFilePath)
 	cap.release();
 }
 
+void VideoProcessing::deleteInvalidScene()
+{
+	std::map<string, vector<ptrScene>>::iterator it;
+	for (it = map_scene.begin(); it != map_scene.end(); ++it)
+	{
+		cout << "删除无效scene:" << it->first << endl;
+		for (auto itv = it->second.begin(); itv != it->second.end();)
+		{
+			if ((*itv)->getFrameSize() < 15) {
+				itv = it->second.erase(itv);  
+			}
+			else {
+				++itv;  
+			}
+		}
+	}
+}
+
 void VideoProcessing::randomDelete()
 {
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
+		cout << "随机删帧:" << it->first << endl;
 		for (ptrScene scene : it->second)
 		{
 			scene->randomDelete();
@@ -76,6 +97,7 @@ void VideoProcessing::randomResize()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
+		cout << "随机缩放:" << it->first << endl;
 		for (ptrScene scene : it->second)
 			scene->randomResize();
 	}
@@ -86,6 +108,7 @@ void VideoProcessing::randomSpeed()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
+		cout << "随机播放速度:" << it->first << endl;
 		for (ptrScene scene : it->second)
 			scene->randomSpeed();
 	}
@@ -105,6 +128,7 @@ void VideoProcessing::write2file()
 		{
 			string strSegmentName = "/segment_" + std::to_string(nIndex + 1) + string(".avi");
 			scene->write2file(strFolderPath + strSegmentName);
+			cout << "save video:" << strSegmentName << endl;
 			nIndex++;
 		}
 	}

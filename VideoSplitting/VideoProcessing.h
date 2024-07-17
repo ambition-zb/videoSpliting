@@ -18,6 +18,8 @@ public:
 	}
 
 	void spliting(string strFilePath);
+	//删除无效的scene
+	void deleteInvalidScene();
 	//随机删除头尾几帧画面
 	void randomDelete();
 	//随机缩放 1.0-1.1

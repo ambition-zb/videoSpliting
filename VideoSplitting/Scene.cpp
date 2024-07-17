@@ -17,6 +17,11 @@ bool Scene::isEmpty()
 	return m_frames.size() == 0;
 }
 
+int Scene::getFrameSize()
+{
+	return (int)m_frames.size();
+}
+
 void Scene::addFrame(const Mat& mat)
 {
 	Mat frame(mat);
@@ -84,22 +89,24 @@ void Scene::randomSpeed()
 		//int m = int(1.0 / (1.0f - fSpeed));
 		int size_new = int(size / fSpeed);
 		int nAdd = size_new - size;
+		if (nAdd == 0)
+			return;
 		int nPoint = size / nAdd;
 		for (int i = 0; i < size; i++)
 		{
 			frames.push_back(m_frames[i]);
 			if (i % nPoint == 0 && i + 1 < size)
 			{
-				std::string outputFilename = "output_image1.jpg";
-				bool result1 = cv::imwrite(outputFilename, m_frames[i]);
-				outputFilename = "output_image3.jpg";
-				bool result3 = cv::imwrite(outputFilename, m_frames[i+1]);
+				//std::string outputFilename = "output_image1.jpg";
+				//bool result1 = cv::imwrite(outputFilename, m_frames[i]);
+				//outputFilename = "output_image3.jpg";
+				//bool result3 = cv::imwrite(outputFilename, m_frames[i+1]);
 
 				cv::Mat interpolatedFrame;
 				//²åÒ»Ö¡£¬Í¸Ã÷¶È0.5
 				cv::addWeighted(m_frames[i], 0.5f, m_frames[i + 1], 0.5f, 0, interpolatedFrame);
-				outputFilename = "output_image2.jpg";
-				bool result2 = cv::imwrite(outputFilename, interpolatedFrame);
+				//outputFilename = "output_image2.jpg";
+				//bool result2 = cv::imwrite(outputFilename, interpolatedFrame);
 				frames.push_back(interpolatedFrame);
 			}
 		}

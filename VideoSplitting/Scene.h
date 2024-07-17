@@ -8,6 +8,7 @@ public:
 	~Scene();
 
 	bool isEmpty();
+	int getFrameSize();
 	void addFrame(const Mat& mat);
 	void randomDelete();
 	void randomResize();

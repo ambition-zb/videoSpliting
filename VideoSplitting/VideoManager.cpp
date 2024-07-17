@@ -25,6 +25,7 @@ void CVideoManager::vedioSplit()
 	{
 		VideoProcessing::getInstance()->spliting(strFile);
 	}
+	VideoProcessing::getInstance()->deleteInvalidScene();
 	VideoProcessing::getInstance()->randomDelete();
 	VideoProcessing::getInstance()->randomResize();
 	VideoProcessing::getInstance()->randomSpeed();
