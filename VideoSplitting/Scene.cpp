@@ -34,7 +34,7 @@ void Scene::randomDelete()
 	int delSize = size / 10;
 	int random_begin = random(1, delSize);
 	int random_end = random(1, delSize);
-
+	cout << m_strName << "[" << size << "-->" << size- random_begin- random_end << "]" << endl;
 	if (size > random_begin + random_end)
 	{
 		m_frames.erase(m_frames.begin(), m_frames.begin() + random_begin);
@@ -45,6 +45,7 @@ void Scene::randomDelete()
 void Scene::randomResize()
 {
 	float fSize = random(1.0f, 1.1f);
+	cout << m_strName << "[1.0" << "-->" << fSize << "]" << endl;
 	for (Mat& frame : m_frames) 
 	{
 		// Ëõ·ÅÍ¼Ïñ
@@ -72,14 +73,19 @@ void Scene::randomSpeed()
 {
 	int speed = 100;
 	int size = (int)m_frames.size();
-	if (size < 30)
-		speed = random(70, 89);
-	else if(size > 30 && size < 50)
-		speed = random(90, 129);
+// 	if (size < 30)
+// 		speed = random(70, 89);
+// 	else if(size > 30 && size < 50)
+// 		speed = random(90, 129);
+// 	else
+// 		speed = random(130, 169);
+	if (size < 34)
+		speed = 90;
 	else
-		speed = random(130, 169);
+		speed = 110;
 
 	float fSpeed = speed / 100.0f;
+	cout << m_strName << "[1.0" << "-->" << fSpeed << "]" << endl;
 	//float fSpeed = 0.8f;
 	vector<Mat> frames;
 	
@@ -161,12 +167,13 @@ bool Scene::write2file(string strFilePath)
 {
 	if (m_frames.size() < 1)
 		return false;
-
+	string strSegmentName = "/segment_" + m_strName + string(".avi");
 	stringstream ss;
-	VideoWriter writer(strFilePath, VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, m_frames[0].size());
+	VideoWriter writer(strFilePath + strSegmentName, VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, m_frames[0].size());
 	for (const Mat& frame : m_frames) {
 		writer.write(frame);
 	}
+	cout << strSegmentName << endl;
 	writer.release();
 	return true;
 }

@@ -23,6 +23,7 @@ void VideoProcessing::spliting(string strFilePath)
 	double threshold = 0.3; 
 
 	ptrScene scene = make_shared<Scene>();
+	scene->m_strName = "1";
 	map_scene[strFilePath].push_back(scene);
 
 	// 读取第一帧并计算直方图
@@ -34,6 +35,7 @@ void VideoProcessing::spliting(string strFilePath)
 	histPrev = CFunction_ColorHistogram::getInstance()->calculateHistogram(prevFrame);
 	scene->addFrame(prevFrame);
 
+	int nCount = 1;
 	// 遍历视频的每一帧
 	while (true) {
 		cap >> currFrame;
@@ -46,7 +48,9 @@ void VideoProcessing::spliting(string strFilePath)
 		double diff = CFunction_ColorHistogram::getInstance()->histogramDifference(histPrev, histCurr);
 		if (diff > threshold) {
 			//创建新的scene
+			nCount++;
 			scene = make_shared<Scene>();
+			scene->m_strName = std::to_string(nCount);;
 			map_scene[strFilePath].push_back(scene);
 		}
 		// 更新前一帧的直方图
@@ -66,10 +70,11 @@ void VideoProcessing::deleteInvalidScene()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
-		cout << "删除无效scene:" << it->first << endl;
+		cout << "视频[" << it->first << "]删除无效scene:" << endl;
 		for (auto itv = it->second.begin(); itv != it->second.end();)
 		{
 			if ((*itv)->getFrameSize() < 15) {
+				cout << (*itv)->m_strName << "[" << (*itv)->getFrameSize() << "fps]" << endl;
 				itv = it->second.erase(itv);  
 			}
 			else {
@@ -84,7 +89,7 @@ void VideoProcessing::randomDelete()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
-		cout << "随机删帧:" << it->first << endl;
+		cout << "视频[" << it->first << "]随机删帧:" << endl;
 		for (ptrScene scene : it->second)
 		{
 			scene->randomDelete();
@@ -97,7 +102,7 @@ void VideoProcessing::randomResize()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
-		cout << "随机缩放:" << it->first << endl;
+		cout << "视频[" << it->first << "]随机缩放:" << endl;
 		for (ptrScene scene : it->second)
 			scene->randomResize();
 	}
@@ -108,7 +113,7 @@ void VideoProcessing::randomSpeed()
 	std::map<string, vector<ptrScene>>::iterator it;
 	for (it = map_scene.begin(); it != map_scene.end(); ++it)
 	{
-		cout << "随机播放速度:" << it->first << endl;
+		cout << "视频[" << it->first << "]随机播放速度:" << endl;
 		for (ptrScene scene : it->second)
 			scene->randomSpeed();
 	}
@@ -123,13 +128,14 @@ void VideoProcessing::write2file()
 		string strDirectory = getDirectoryPath(strFilePath);
 		string strFileName = getFileNameWithoutExtension(strFilePath);
 		string strFolderPath = createFolder(strDirectory, strFileName);
-		int nIndex = 0;
+		cout << "视频[" << it->first << "]保存:" << endl;
+		//int nIndex = 0;
 		for (ptrScene scene : it->second)
 		{
-			string strSegmentName = "/segment_" + std::to_string(nIndex + 1) + string(".avi");
-			scene->write2file(strFolderPath + strSegmentName);
-			cout << "save video:" << strSegmentName << endl;
-			nIndex++;
+			//string strSegmentName = "/segment_" + std::to_string(nIndex + 1) + string(".avi");
+			scene->write2file(strFolderPath /*+ strSegmentName*/);
+			//cout << "save video:" << strSegmentName << endl;
+			//nIndex++;
 		}
 	}
 }
