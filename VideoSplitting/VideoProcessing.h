@@ -2,6 +2,14 @@
 #include "Common.h"
 #include "Scene.h"
 
+struct EncoderContext {
+	AVFormatContext* output_fmt_ctx = nullptr;
+	AVCodecContext* codec_ctx = nullptr;
+	AVStream* stream = nullptr;
+	AVFrame* yuv_frame = nullptr;
+	SwsContext* sws_ctx = nullptr;
+};
+
 class VideoProcessing
 {
 public:
@@ -16,6 +24,9 @@ public:
 			});
 		return instance;
 	}
+
+	bool initializeEncoderContext(EncoderContext& enc_ctx);
+	void releaseEncoderContext(EncoderContext& enc_ctx);
 
 	void spliting(string strFilePath);
 	//删除无效的scene
@@ -39,5 +50,7 @@ private:
 	//string m_strFilePath;
 	//场景
 	map<string, vector<ptrScene>> map_scene;
+	int nWidth = 0;
+	int nHeight = 0;
 };
 

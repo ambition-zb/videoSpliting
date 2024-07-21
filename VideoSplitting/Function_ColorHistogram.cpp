@@ -95,8 +95,45 @@ Mat CFunction_ColorHistogram::calculateHistogram(const Mat& frame) {
 	normalize(hist, hist, 0, 1, NORM_MINMAX, -1, Mat());
 	return hist;
 }
-
 // 计算两个直方图之间的差异
 double CFunction_ColorHistogram::histogramDifference(const Mat& hist1, const Mat& hist2) {
 	return compareHist(hist1, hist2, HISTCMP_BHATTACHARYYA);
 }
+
+
+void CFunction_ColorHistogram::calculateHistogram(const AVFrame* frame, vector<double>& hist)
+{
+	int width = frame->width;          // 图像宽度
+	int height = frame->height;        // 图像高度
+	int step = frame->linesize[0];     // 每行像素的步长
+	uint8_t* data = frame->data[0];    // 图像数据指针
+
+	hist.assign(256 * 3, 0.0);         // 初始化直方图向量
+
+	// 遍历图像像素，计算每个颜色通道的直方图
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			uint8_t r = data[y * step + x * 3 + 0];  // 红色通道
+			uint8_t g = data[y * step + x * 3 + 1];  // 绿色通道
+			uint8_t b = data[y * step + x * 3 + 2];  // 蓝色通道
+			hist[r]++;
+			hist[256 + g]++;
+			hist[512 + b]++;
+		}
+	}
+
+	// 归一化直方图
+	for (int i = 0; i < hist.size(); i++) {
+		hist[i] /= (width * height);
+	}
+}
+
+double CFunction_ColorHistogram::computeHistogramDifference(const vector<double>& hist1, const vector<double>& hist2)
+{
+	double diff = 0.0;
+	for (int i = 0; i < hist1.size(); i++) {
+		diff += fabs(hist1[i] - hist2[i]);
+	}
+	return diff;
+}
+

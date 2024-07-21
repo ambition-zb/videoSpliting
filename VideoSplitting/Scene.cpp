@@ -12,6 +12,7 @@ Scene::~Scene()
 
 }
 
+
 bool Scene::isEmpty()
 {
 	return m_frames.size() == 0;
@@ -22,14 +23,44 @@ int Scene::getFrameSize()
 	return (int)m_frames.size();
 }
 
-void Scene::addFrame(const Mat& mat)
+void Scene::addFrame(AVFrame* mat)
 {
-	Mat frame(mat);
-	m_frames.push_back(frame);
+	AVFrame* new_frame = av_frame_clone(mat);
+	m_frames.push_back(new_frame);
+	//Mat frame(mat);
+	//m_frames.push_back(frame);
+	// 分配新AVFrame
+	/*
+	AVFrame* dst = av_frame_alloc();
+	if (!dst) {
+		fprintf(stderr, "Could not allocate AVFrame\n");
+		return NULL;
+	}
+
+	// 拷贝AVFrame的元数据
+	if (av_frame_ref(dst, src) < 0) {
+		fprintf(stderr, "Could not reference AVFrame\n");
+		av_frame_free(&dst);
+		return NULL;
+	}
+
+	// 为新AVFrame分配数据缓冲区
+	if (av_image_alloc(dst->data, dst->linesize, src->width, src->height, src->format, 32) < 0) {
+		fprintf(stderr, "Could not allocate image buffer\n");
+		av_frame_free(&dst);
+		return NULL;
+	}
+
+	// 拷贝图像数据
+	av_image_copy(dst->data, dst->linesize, (const uint8_t**)src->data, src->linesize, src->format, src->width, src->height);
+
+	return dst;
+	*/
 }
 
 void Scene::randomDelete()
 {
+	/*
 	int size = (int)m_frames.size();
 	int delSize = size / 10;
 	int random_begin = random(1, delSize);
@@ -40,10 +71,12 @@ void Scene::randomDelete()
 		m_frames.erase(m_frames.begin(), m_frames.begin() + random_begin);
 		m_frames.resize(m_frames.size() - random_end);
 	}
+	*/
 }
 
 void Scene::randomResize()
 {
+	/*
 	float fSize = random(1.0f, 1.1f);
 	cout << m_strName << "[1.0" << "-->" << fSize << "]" << endl;
 	for (Mat& frame : m_frames) 
@@ -67,10 +100,12 @@ void Scene::randomResize()
 
 		frame = cv::Mat(croppedImage);
 	}
+	*/
 }
 
 void Scene::randomSpeed()
 {
+	/*
 	int speed = 100;
 	int size = (int)m_frames.size();
 // 	if (size < 30)
@@ -131,6 +166,7 @@ void Scene::randomSpeed()
 	}
 	m_frames.clear();
 	copy(frames.begin(), frames.end(), back_inserter(m_frames));
+	*/
 }
 
 int Scene::random(int min, int max)
@@ -165,6 +201,7 @@ float Scene::random(float min, float max)
 
 bool Scene::write2file(string strFilePath)
 {
+	/*
 	if (m_frames.size() < 1)
 		return false;
 	string strSegmentName = "/segment_" + m_strName + string(".avi");
@@ -175,5 +212,6 @@ bool Scene::write2file(string strFilePath)
 	}
 	cout << strSegmentName << endl;
 	writer.release();
-	return true;
+	*/
+	return false;
 }

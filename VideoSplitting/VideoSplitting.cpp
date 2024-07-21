@@ -11,11 +11,11 @@ int main()
 	CVideoManager videoMng;
 
 	list<string> listVedio;
-	listVedio.push_back("D:\\自媒体\\带货\\20240716大窑\\1.mp4");
-	listVedio.push_back("D:\\自媒体\\带货\\20240716大窑\\2.mp4");
-	listVedio.push_back("D:\\自媒体\\带货\\20240716大窑\\3.mp4");
-	listVedio.push_back("D:\\自媒体\\带货\\20240716大窑\\4.mp4");
-	listVedio.push_back("D:\\自媒体\\带货\\20240716大窑\\5.mp4");
+	listVedio.push_back("C:\\Users\\mei_s\\Desktop\\test\\13364733725316487.mp4");
+// 	listVedio.push_back("D:\\自媒体\\带货\\20240721金银花凉茶\\2.mp4");
+// 	listVedio.push_back("D:\\自媒体\\带货\\20240721金银花凉茶\\3.mp4");
+// 	listVedio.push_back("D:\\自媒体\\带货\\20240721金银花凉茶\\4.mp4");
+// 	listVedio.push_back("D:\\自媒体\\带货\\20240721金银花凉茶\\5.mp4");
 	videoMng.setVedioList(listVedio);
 	videoMng.vedioSplit();
 
