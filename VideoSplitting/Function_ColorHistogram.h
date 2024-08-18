@@ -19,11 +19,11 @@ public:
 	}
 	
 	//void doTask(string& strFilePath);
-	Mat calculateHistogram(const Mat& frame);
-	double histogramDifference(const Mat& hist1, const Mat& hist2);
+	//Mat calculateHistogram(const Mat& frame);
+	//double histogramDifference(const Mat& hist1, const Mat& hist2);
 
-	void calculateHistogram(const AVFrame* frame, vector<double>& hist);
-	double computeHistogramDifference(const vector<double>& hist1, const vector<double>& hist2);
+	void calculateHistogram(const AVFrame* frame, std::vector<double>& hist);
+	double computeHistogramDifference(const std::vector<double>& hist1, const std::vector<double>& hist2);
 private:
 	// 私有构造函数，禁止从外部创建实例
 	CFunction_ColorHistogram() {

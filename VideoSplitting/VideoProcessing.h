@@ -1,6 +1,6 @@
 #pragma once
 #include "Common.h"
-#include "Scene.h"
+#include "Decode.h"
 
 struct EncoderContext {
 	AVFormatContext* output_fmt_ctx = nullptr;
@@ -25,10 +25,7 @@ public:
 		return instance;
 	}
 
-	bool initializeEncoderContext(EncoderContext& enc_ctx);
-	void releaseEncoderContext(EncoderContext& enc_ctx);
-
-	void spliting(string strFilePath);
+	void spliting(std::string strFilePath);
 	//删除无效的scene
 	void deleteInvalidScene();
 	//随机删除头尾几帧画面
@@ -41,7 +38,6 @@ public:
 private:
 	// 私有构造函数，禁止从外部创建实例
 	VideoProcessing() {
-		std::cout << "CFunction_ColorHistogram instance created." << std::endl;
 	}
 
 	static std::shared_ptr<VideoProcessing> instance;
@@ -49,8 +45,9 @@ private:
 
 	//string m_strFilePath;
 	//场景
-	map<string, vector<ptrScene>> map_scene;
+	std::map<std::string, DecodePtr> map_decode;
 	int nWidth = 0;
 	int nHeight = 0;
+
 };
 

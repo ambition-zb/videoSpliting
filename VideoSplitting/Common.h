@@ -2,7 +2,11 @@
 #include <string>
 #include <vector>
 #include <map>
-using namespace std;
+#include <memory>
+#include <mutex>
+#include <iostream>
+#include <algorithm>
+//using namespace std;
 
 extern "C" {
 #include <libavformat/avformat.h>  // FFmpeg 格式处理相关
@@ -13,11 +17,16 @@ extern "C" {
 }
 
 
-#include <opencv2/opencv.hpp>
-using namespace cv;
+// #include <opencv2/opencv.hpp>
+// using namespace cv;
+
+
+#include "Message.h"
 
 #define HISTOGRAM_DIFFERENCE_THRESHOLD  1.0f;
 
-string getDirectoryPath(string filePath);
-string getFileNameWithoutExtension(string filePath);
-string createFolder(string strPath, string folderName);
+std::string getDirectoryPath(std::string filePath);
+std::string getFileNameWithoutExtension(std::string filePath);
+std::string createFolder(std::string strPath);
+std::string createFolder(std::string strPath, std::string folderName);
+std::string getCurrentDate();

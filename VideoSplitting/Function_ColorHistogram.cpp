@@ -11,7 +11,7 @@ void CFunction_ColorHistogram::doTask(string& strFilePath)
 	cv::VideoCapture cap(strFilePath);
 	if (!cap.isOpened())
 	{
-		cerr << "Error opening video file" << endl;
+		cerr << "Error opening video file" << std::endl;
 		return;
 	}
 
@@ -30,7 +30,7 @@ void CFunction_ColorHistogram::doTask(string& strFilePath)
 	// 读取第一帧并计算直方图
 	cap >> prevFrame;
 	if (prevFrame.empty()) {
-		cerr << "Error reading first frame" << endl;
+		cerr << "Error reading first frame" << std::endl;
 		return;
 	}
 	histPrev = calculateHistogram(prevFrame);
@@ -46,7 +46,7 @@ void CFunction_ColorHistogram::doTask(string& strFilePath)
 
 		// 计算直方图差异
 		double diff = histogramDifference(histPrev, histCurr);
-		//cout << diff << endl;
+		//std::cout << diff << std::endl;
 
 		if (diff > threshold) {
 			// 保存当前镜头
@@ -77,7 +77,7 @@ void CFunction_ColorHistogram::doTask(string& strFilePath)
 	}
 	cap.release();
 }
-*/
+
 // 计算图像的颜色直方图
 Mat CFunction_ColorHistogram::calculateHistogram(const Mat& frame) {
 	Mat hsv;
@@ -99,9 +99,9 @@ Mat CFunction_ColorHistogram::calculateHistogram(const Mat& frame) {
 double CFunction_ColorHistogram::histogramDifference(const Mat& hist1, const Mat& hist2) {
 	return compareHist(hist1, hist2, HISTCMP_BHATTACHARYYA);
 }
+*/
 
-
-void CFunction_ColorHistogram::calculateHistogram(const AVFrame* frame, vector<double>& hist)
+void CFunction_ColorHistogram::calculateHistogram(const AVFrame* frame, std::vector<double>& hist)
 {
 	int width = frame->width;          // 图像宽度
 	int height = frame->height;        // 图像高度
@@ -128,7 +128,7 @@ void CFunction_ColorHistogram::calculateHistogram(const AVFrame* frame, vector<d
 	}
 }
 
-double CFunction_ColorHistogram::computeHistogramDifference(const vector<double>& hist1, const vector<double>& hist2)
+double CFunction_ColorHistogram::computeHistogramDifference(const std::vector<double>& hist1, const std::vector<double>& hist2)
 {
 	double diff = 0.0;
 	for (int i = 0; i < hist1.size(); i++) {
