@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 
+/*
 class DownloadVideo
 {
 public:
@@ -19,4 +20,5 @@ private:
 	std::string m_folder;
 	int m_index = 1;
 };
+*/
 

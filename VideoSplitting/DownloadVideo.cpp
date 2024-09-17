@@ -1,6 +1,7 @@
 #include "DownloadVideo.h"
 #include <regex>
 
+/*
 #define CURL_STATICLIB
 #define HTTP_ONLY
 #include <curl.h>
@@ -33,14 +34,14 @@ std::string DownloadVideo::download(const std::string& short_url)
 	std::string url = extractUrl(short_url);
 	if (url.empty())
 		return output_file;
-	/*
-	// Step 1: Follow the redirect to get the real video page URL
-	std::string real_video_url = followRedirect(short_url);
-	if (real_video_url.empty()) 
-	{
-		std::cerr << "Failed to resolve the short URL!" << std::endl;
-		return output_file;
-	}*/
+	
+	//// Step 1: Follow the redirect to get the real video page URL
+	//std::string real_video_url = followRedirect(short_url);
+	//if (real_video_url.empty()) 
+	//{
+	//	std::cerr << "Failed to resolve the short URL!" << std::endl;
+	//	return output_file;
+	//}
 
 	// Step 2: Get the HTML content of the real video page
 	std::string html_content = getHTMLContentByUrl(url);
@@ -217,17 +218,17 @@ std::string DownloadVideo::getHTMLContent(const std::string& url)
 // Function to extract the real video URL from the HTML content
 std::string DownloadVideo::extractVideoURL(const std::string& html_content) 
 {
-	/*
-	// 打开JSON文件
- 	std::ifstream ifs("C:\\Users\\mei_s\\Desktop\\response_1723363211422.json");
- 	if (!ifs.is_open()) {
- 		std::cerr << "无法打开文件" << std::endl;
- 		return "";
- 	}
- 
- 	// 将文件内容读入字符串
- 	std::string html_content{ std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>() };
-	*/
+	
+	//// 打开JSON文件
+ //	std::ifstream ifs("C:\\Users\\mei_s\\Desktop\\response_1723363211422.json");
+ //	if (!ifs.is_open()) {
+ //		std::cerr << "无法打开文件" << std::endl;
+ //		return "";
+ //	}
+ //
+ //	// 将文件内容读入字符串
+ //	std::string html_content{ std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>() };
+	//
 	// 使用Json::Reader解析字符串
 	Json::Reader reader;
 	Json::Value root;
@@ -312,3 +313,4 @@ std::string DownloadVideo::extractUrl(const std::string& text)
 	}
 	return "";
 }
+*/

@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\BIN\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,14 +109,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>../ffmpeg/include;..\curl\include;..\jsoncpp;..\glfw\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ffmpeg/include;..\jsoncpp;..\glfw\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;libcurl_a_debug.lib;Ws2_32.lib;Wldap32.lib;winmm.lib;Crypt32.lib;Normaliz.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../ffmpeg/lib;..\curl\lib;..\glfw\lib-vc2022</AdditionalLibraryDirectories>
+      <AdditionalDependencies>avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;Ws2_32.lib;Wldap32.lib;winmm.lib;Crypt32.lib;Normaliz.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../ffmpeg/lib;..\glfw\lib-vc2022</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,6 +175,7 @@
     <ClInclude Include="FFmpegHandler.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Proto.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="VideoProcessing.h" />
     <ClInclude Include="Function_ColorHistogram.h" />
     <ClInclude Include="Scene.h" />
@@ -182,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\imgui\imgui.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VideoSplitting.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\mei_s\Desktop\系统icon获取\icons\shell32_51380.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

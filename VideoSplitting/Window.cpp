@@ -136,12 +136,12 @@ void Window::Init()
 					if (!m_vUrls.empty() /*&& IsUrlsValid()*/)
 					{
 						std::string strPath = m_strPath_Url + "\\" + m_strFolder_Url;
-						videoDownload.setFolder(strPath);
-						for (std::string url : m_vUrls)
-						{
-							if(!url.empty())
-								videoDownload.download(url);
-						}
+// 						videoDownload.setFolder(strPath);
+// 						for (std::string url : m_vUrls)
+// 						{
+// 							if(!url.empty())
+// 								videoDownload.download(url);
+// 						}
 						videoMng.setVideoFolder(strPath);
 					}
 					else

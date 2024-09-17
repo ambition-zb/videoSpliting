@@ -1,6 +1,6 @@
 #pragma once
 #include "Common.h"
-#include "DownloadVideo.h"
+//#include "DownloadVideo.h"
 
 class Window
 {
@@ -18,6 +18,6 @@ public:
 	std::string m_strPath_Url = "D://media";
 	std::string m_strFolder_Url = getCurrentDate();
 
-	DownloadVideo videoDownload;
+	//DownloadVideo videoDownload;
 };
 
