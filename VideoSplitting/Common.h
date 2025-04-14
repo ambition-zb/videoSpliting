@@ -27,6 +27,8 @@ extern "C" {
 
 std::string getDirectoryPath(std::string filePath);
 std::string getFileNameWithoutExtension(std::string filePath);
+std::string getFileExtension(std::string filePath);
 std::string createFolder(std::string strPath);
 std::string createFolder(std::string strPath, std::string folderName);
 std::string getCurrentDate();
+bool isFileExist(std::string strFile);

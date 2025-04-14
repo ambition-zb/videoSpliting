@@ -35,6 +35,9 @@ public:
 	//随机变速
 	void randomSpeed();
 	void write2file();
+
+	//爆改时长
+	void changeDuration(std::string strInputFile, std::string strOutputFile, int newDurationSeconds);
 private:
 	// 私有构造函数，禁止从外部创建实例
 	VideoProcessing() {

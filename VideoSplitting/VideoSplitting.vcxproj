@@ -150,6 +150,7 @@
     <ClCompile Include="Encode.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Proto.cpp" />
+    <ClCompile Include="VideoMetadataEditor.cpp" />
     <ClCompile Include="VideoProcessing.cpp" />
     <ClCompile Include="Function_ColorHistogram.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="Proto.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="VideoMetadataEditor.h" />
     <ClInclude Include="VideoProcessing.h" />
     <ClInclude Include="Function_ColorHistogram.h" />
     <ClInclude Include="Scene.h" />

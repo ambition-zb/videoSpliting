@@ -57,6 +57,11 @@ void CVideoManager::videoSplit()
 	std::cout << "video spliting successful!" << std::endl;
 }
 
+void CVideoManager::changeDuration(const std::string inputPath, const std::string outputPath, int newDurationSeconds)
+{
+	VideoProcessing::getInstance()->changeDuration(inputPath, outputPath, newDurationSeconds);
+}
+
 // double CVideoManager::frameDifference(const Mat& frame1, const Mat& frame2)
 // {
 // 	Mat diff;

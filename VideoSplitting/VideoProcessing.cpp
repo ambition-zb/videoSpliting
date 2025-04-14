@@ -1,6 +1,7 @@
 #include "VideoProcessing.h"
 #include "Function_ColorHistogram.h"
 #include "Decode.h"
+#include "VideoMetadataEditor.h"
 
 // 定义静态成员变量
 std::shared_ptr<VideoProcessing> VideoProcessing::instance = nullptr;
@@ -64,4 +65,10 @@ void VideoProcessing::write2file()
 	{
 		it->second->write2file();
 	}
+}
+
+void VideoProcessing::changeDuration(std::string strInputFile, std::string strOutputFile, int newDurationSeconds)
+{
+	VideoMetadataEditor editor;
+	editor.modifyDuration(strInputFile, strOutputFile, newDurationSeconds);
 }

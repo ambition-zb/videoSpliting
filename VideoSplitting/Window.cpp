@@ -180,6 +180,39 @@ void Window::Init()
 				ImGui::Separator();
 				ImGui::TreePop();
 			}
+			
+			if (ImGui::TreeNode(u8"爆改时长"))
+			{
+				CreateInput(u8"秒", m_nChangeDuration);
+				ImGui::SameLine();
+				if (ImGui::Button(u8"选择文件")) {
+					std::string m_strFile = SelectFile();
+
+					std::string strFilePath = getDirectoryPath(m_strFile);
+					std::string strFileName = getFileNameWithoutExtension(m_strFile);
+					std::string strExtension = getFileExtension(m_strFile);
+
+					std::string strFile_new = "";
+					bool bFileExist = true;
+					int nIndex = 1;
+					while (bFileExist)
+					{
+						strFile_new = strFilePath + "\\" + strFileName + "_output_" + std::to_string(nIndex) + strExtension;
+						if (isFileExist(strFile_new))
+						{
+							nIndex++;
+						}
+						else
+						{
+							bFileExist = false;
+						}
+					}
+
+					videoMng.changeDuration(m_strFile, strFile_new, m_nChangeDuration);
+				}
+				ImGui::Separator();
+				ImGui::TreePop();
+			}
 
 			ImGui::End();
 		}
@@ -217,6 +250,11 @@ void Window::CreateInput(std::string strName, std::string& strValue)
 	ImGui::InputText(strName.c_str(), buffer, IM_ARRAYSIZE(buffer));
 }
 
+void Window::CreateInput(std::string strName, int& nValue)
+{
+	ImGui::InputInt(strName.c_str(), &nValue);
+}
+
 std::string Window::SelectFolder()
 {
 	std::string strFolder = "";
@@ -250,6 +288,55 @@ std::string Window::SelectFolder()
 	CoUninitialize();
 
 	return strFolder;
+}
+
+// 使用IFileDialog选择单个文件
+std::string Window::SelectFile()
+{
+	std::string result = "";
+
+	// 初始化COM库
+	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+	if (FAILED(hr)) return result;
+
+	// 创建文件对话框对象
+	IFileDialog* pFileDialog = NULL;
+	hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pFileDialog));
+	if (SUCCEEDED(hr))
+	{
+		// 设置选项
+		DWORD dwOptions;
+		pFileDialog->GetOptions(&dwOptions);
+		pFileDialog->SetOptions(dwOptions | FOS_FORCEFILESYSTEM | FOS_PATHMUSTEXIST | FOS_FILEMUSTEXIST);
+
+		// 显示对话框
+		hr = pFileDialog->Show(NULL);
+		if (SUCCEEDED(hr))
+		{
+			// 获取选择结果
+			IShellItem* pItem = nullptr;
+			hr = pFileDialog->GetResult(&pItem);
+			if (SUCCEEDED(hr))
+			{
+				PWSTR pszFilePath;
+				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+				if (SUCCEEDED(hr))
+				{
+					char path[MAX_PATH];
+					size_t convertedChars = 0;
+					wcstombs_s(&convertedChars, path, pszFilePath, MAX_PATH);
+
+					result = std::string(path);
+					CoTaskMemFree(pszFilePath);
+				}
+				pItem->Release();
+			}
+		}
+		pFileDialog->Release();
+	}
+
+	CoUninitialize();
+	return result;
 }
 
 bool Window::IsUrlsValid()

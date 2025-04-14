@@ -81,6 +81,9 @@
     <ClCompile Include="Window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="VideoMetadataEditor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VideoManager.h">
@@ -150,6 +153,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoMetadataEditor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

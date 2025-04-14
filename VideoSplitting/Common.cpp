@@ -38,6 +38,13 @@ std::string getFileNameWithoutExtension(std::string filePath)
 	return p.stem().string();
 }
 
+std::string getFileExtension(std::string filePath)
+{
+	std::filesystem::path p(filePath);
+	std::string extension = p.extension().string();
+	return extension;
+}
+
 std::string createFolder(std::string strPath)
 {
 	std::filesystem::path path(strPath);
@@ -69,5 +76,15 @@ std::string getCurrentDate()
 	oss << std::put_time(&localTime, "%Y-%m-%d");
 
 	return oss.str();
+}
+
+bool isFileExist(std::string strFile)
+{
+	if (std::filesystem::exists(strFile)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 

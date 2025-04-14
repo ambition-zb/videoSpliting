@@ -16,7 +16,7 @@ public:
 	void videoSplit();
 	//double frameDifference(const Mat& frame1, const Mat& frame2);
 
-	
+	void changeDuration(const std::string inputPath, const std::string outputPath, int newDurationSeconds);
 private:
 	std::list<std::string> m_listVedio;
 };
